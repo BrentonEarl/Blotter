@@ -1,0 +1,30 @@
+<article>
+<h2>Are you sure?</h2>
+<table class="admin_posts">
+	<tr>
+		<td>Title</td>
+		<td>Date</td>
+		<td>Author</td>
+		<td>Summary</td>
+	</tr>
+	<tr>
+		<td><%= @post.title %></td>
+		<td><%= @post.created_at %></td>
+		<td><%= @post.author %></td>
+		<td><%= @post.summary %></td>
+	</tr>
+</table><br />
+<table class="admin_posts">
+	<tr>
+		<td>
+			<a href="/admin">No, Cancel</a>
+		</td>
+		<td>
+			<form action="/posts/<%= @post.id %>" method="post" class="form">
+			<input type="hidden" name="_method" value="delete" />
+			<input type="submit" value="Yes, Delete">
+			</form>
+		</td>
+	</tr>
+</table>
+</article>

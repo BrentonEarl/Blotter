@@ -1,0 +1,31 @@
+<h2>Admin Panel</h2>
+<table class="admin_table">
+	<tr>
+		<th>Tasks</th>
+		<th></th>
+	</tr>
+	<tr>		
+		<td><a href="/posts/new">Create A Post</a></a></td>
+		<td><a href="/logout">Sign Out</a></td>
+		<td><a href="/admin/settings">Site Settings</a></td>
+	</tr>
+</table>
+<h2>All Site Content</h2>
+<table class="admin_table">
+	<tr>
+		<td>Title</td>
+ 		<td>Date</td>
+ 		<td>Summary</td>
+ 		<td>Action</td>
+ 	</tr>
+	<% @post.each do |posts| %>
+	<tr>
+		<td><a href="/posts/<%= posts.id %>"><%= posts.title %></a></td>
+		<td><%= posts.created_at %></td>
+		<td><%= posts.summary %></td>
+		<td>
+			<a href="/posts/<%= posts.id %>/edit">Edit</a> | <a href="/posts/<%= posts.id %>/delete">Delete</a>
+		</td>
+	</tr>
+  <% end %>
+</table>
