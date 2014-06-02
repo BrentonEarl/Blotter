@@ -1,6 +1,7 @@
 Blotter
 =======
 
+<<<<<<< HEAD
 A blogging software written in Ruby.  It utilizes the [Sinatra DSL](http://www.sinatrarb.com/) to serve content, and Active Record to store data in its database.
 
 #### Installation
@@ -47,3 +48,6 @@ __Deployment__
 10.  Database Exports / Backup
 
 *  Note:  This app is a work in progress and is meant to be an eventual Wordpress replacement software for [Exit Status One](http://exitstatusone.com).
+=======
+A blogging software written in ruby using Sinatra and Activerecord
+>>>>>>> 011fbee18c88bda4b2b149430010b464b1b46a6a
