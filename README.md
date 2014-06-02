@@ -37,13 +37,13 @@ __Deployment__
 1.  Theme Customization Settings
 2.  Comments
 3.  Comment Moderation Settings
-3.  Categories
-4.  Categories Settings
-5.  Archives Page
-6.  Media Gallery
-7.  Media Uploads
-8.  Contact Information Settings
-9.  Email Server settings
-10.  Database Exports / Backup
+4.  Categories
+5.  Categories Settings
+6.  Archives Page
+7.  Media Gallery
+8.  Media Uploads
+9.  Contact Information Settings
+10.  Email Server settings
+11.  Database Exports / Backup
 
 *  Note:  This app is a work in progress and is meant to be an eventual Wordpress replacement software for [Exit Status One](http://exitstatusone.com).
