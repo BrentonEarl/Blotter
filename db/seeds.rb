@@ -1,5 +1,5 @@
 require './db/models/init'
-
+#### This is messy and lazy, clean up
 
 print "Seed #1:  Create 5 test posts\n\n"
 5.times do |i|
