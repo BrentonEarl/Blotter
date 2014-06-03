@@ -35,7 +35,6 @@ __Deployment__
 
 (In no peticular order)
 
-*  Email and Contact Settings
 *  Archives and Search
 *  Media Gallery and uploads
 *  Comments and comment moderation
