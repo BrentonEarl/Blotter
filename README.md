@@ -35,10 +35,9 @@ __Deployment__
 
 (In no peticular order)
 
-*  Theme Customization Settings
-*  Comments and comment moderation
-*  Categories
+*  Email and Contact Settings
 *  Archives and Search
 *  Media Gallery and uploads
-*  Email and Contact Settings
+*  Comments and comment moderation
+*  Theme Customization Settings
 *  Database Export for backup
