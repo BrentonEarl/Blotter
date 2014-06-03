@@ -140,7 +140,7 @@ class Application < Sinatra::Base
         :user_name => '', 
         :password => '', 
         :authentication => :plain, 
-        :domain => ''
+        :domain => 'localhost.localdomain'
         }
       })
     flash[:notice] = "Your email has been sent.  You will be contacted shortly."

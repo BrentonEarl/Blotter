@@ -1,23 +1,24 @@
 <h2>Installation</h2>
-
+<article>
 <h4>Set up directions</h4>
 <ol>
 	<li>Run 'bundle install' in the application root directory</li>
-	<li>Edit db/environments.rb to reflect database settings</li>
-	<li>Execute 'rake db:create' and 'rake db:migrate'</li>
+	<li>Edit db/environments.rb and config/database.yml to reflect database settings</li>
+	<li>Execute 'rake db:create' and 'rake db:migrate' in root directory</li>
 	<li>Fill out the form below to create the Administrative account.</li>
 	<li>Sign into the site and update the site settings.</li>
 </ol>
 
 
 <form action="/install" method="post" class="form">
-<label for="name">Name:</label><br />
+<label for="name">Administrator Name:</label><br />
 <input type="text" name="name"><br /><br />
-<label for="email">Email Address</label><br />
+<label for="email">Administrator Email Address</label><br />
 <input type="text" name="email"><br /><br />
-<label for="password">Password</label><br />
+<label for="password">Administrator Password</label><br />
 <input type="password" name="password"><br /><br />
 <label for="password_confirmation">Password Confirmation</label><br />
 <input type="password" name="password_confirmation" ><br /><br />
-<input type="submit" value="Create User">
+<input type="submit" value="Save Account">
 </form>
+</article>
