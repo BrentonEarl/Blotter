@@ -1,3 +1,5 @@
 require './db/models/user'
 require './db/models/site_settings'
 require './db/models/posts'
+require './db/models/category'
+require './db/models/categorizations'

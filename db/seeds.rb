@@ -1,22 +1,32 @@
 require './db/models/init'
-#### This is messy and lazy, clean up
 
-print "Seed #1:  Create 5 test posts\n\n"
-5.times do |i|
-    Posts.create(
-      title: "Hello World ##{i}",
-      author: "Brenton Earl",
-      summary: "This is post number ##{i}.",
-      body: "Welcome to the site.  This is post number ##{i}.  
-             Please stick around for further updates."
-    )
-    print "Created ##{i} posts\n"
+print "\n\n"
+print "Seed:  Created 1 Test Post."
+print "\n"
+if Posts.count == 0
+    post = Posts.new
+    category = Category.new
+    
+    post.title = "Testing"
+    post.author = "Brenton Earl"
+    post.summary = "This is a test post."
+    post.body = "Welcome to the site.  This is a test post."
+    # Add category
+    category.name = "Test"
+    post.categories << category
+    
+    post.save
+    print " Created post."
+else
+  print " Post not created.  It already exists"
 end
 
-print "\n Seed #2:  Create default site settings\n\n"
+print "\n\n"
+print "Seed:  Create default site settings"
+print "\n"
 
 #### Add some test data to site settings table
-1.times do |i|
+if SiteSettings.count == 0
   SiteSettings.create(
   name: "Exit Status One",
   tagline: "This is the tagline.",
@@ -27,5 +37,8 @@ print "\n Seed #2:  Create default site settings\n\n"
               It uses the Sinatra DSL, which is written in the 
               Ruby programming language."
   )
-  print "Created Default Site Settings\n"
+  print " Created Default Site Settings"
 end
+
+print "\n\n"
+print "\n"
