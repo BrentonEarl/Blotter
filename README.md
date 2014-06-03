@@ -3,7 +3,7 @@ Blotter
 
 Blotter is a blogging software written in Ruby.  It was created to replace Wordpress for the site [http://exitstatusone.com](http://exitstatusone.com).  It utilizes the [Sinatra DSL](http://www.sinatrarb.com/) and Active Record to store data in its database.
 
-#### Installation
+### Installation
 
 *  Ruby 1.9.3 or greater
 
@@ -27,11 +27,11 @@ __Deployment__
 *  Create the administrative account at /install, anyone will be able to create a user, so do this quickly
 *  Site settings can be found at /admin/settings, update to reflect your blog's information
 
-#### Troubleshooting
+### Troubleshooting
 
 *  The contact page is currently left unconfigured in the Sinatra route.  You must add your email settings to have a functional email form.
 
-#### Future Features
+### Future Features
 
 (In no peticular order)
 

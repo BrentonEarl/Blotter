@@ -49,6 +49,21 @@ nav li {
 display:inline;
 }
 
+article {
+margin:2%;
+width:100%;
+}
+
+footer {
+display:block;
+text-align:right;
+height:10%;
+}
+
+footer p {
+margin-right:3%;
+}
+
 .form {
 width:50%;
 }
@@ -80,19 +95,6 @@ text-align:center;
 color: #000;
 }
 
-article {
-margin:2%;
-width:100%;
+.gist{
+width:90%;
 }
-
-footer {
-display:block;
-text-align:right;
-height:10%;
-}
-
-footer p {
-margin-right:3%;
-}
-
-.gist{width:90%;}

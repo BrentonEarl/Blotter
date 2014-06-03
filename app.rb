@@ -40,6 +40,7 @@ class Application < Sinatra::Base
       if user && user.authenticate(params[:password])
       # Sign the user in, create session, and redirect to the users page
         sign_in user
+        flash[:notice] = "Welcome, #{user.name}!"
         redirect '/admin'
       else
         alert_warning
@@ -248,10 +249,13 @@ class Application < Sinatra::Base
   post '/posts/new' do
     if signed_in?
       post = Posts.new
+      category = Category.new
       post.title = params[:title]
       post.author =  params[:author]
       post.summary = params[:summary]
       post.body = params[:body]
+      category.name = params[:category]
+      post.categories << category
       if post.save
         redirect '/admin'
       else
@@ -267,6 +271,7 @@ class Application < Sinatra::Base
   get '/posts/:id/edit' do
     if signed_in?
       @post = Posts.find(params[:id])
+      @category = Category.joins(:posts).find_by(posts: { id: params[:id] })
       erb :'posts/edit'
     else
       alert_error
@@ -277,10 +282,12 @@ class Application < Sinatra::Base
   post '/posts/:id/edit' do
     if signed_in?
       post = Posts.find(params[:id])
+      category = Category.joins(:posts).find_by(posts: { id: params[:id] })
       post.title = params[:title]
       post.author = params[:author]
       post.summary = params[:summary]
       post.body = params[:body]
+      category.update(name: params[:category])
       if post.save
         redirect '/admin'
       else
@@ -316,6 +323,7 @@ class Application < Sinatra::Base
   get '/posts/:id' do
     information
     @post = Posts.find(params[:id])
+    @category = Category.joins(:posts).find_by(posts: { id: params[:id] })
     erb :'posts/view'
   end
   ####
