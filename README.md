@@ -1,7 +1,7 @@
 Blotter
 =======
 
-A blogging software written in Ruby.  It utilizes the [Sinatra DSL](http://www.sinatrarb.com/) to serve content, and Active Record to store data in its database.
+Blotter is a blogging software written in Ruby.  It was created to replace Wordpress for the site [http://exitstatusone.com](http://exitstatusone.com).  It utilizes the [Sinatra DSL](http://www.sinatrarb.com/) and Active Record to store data in its database.
 
 #### Installation
 
@@ -21,29 +21,24 @@ __Deployment__
 
 *  Install required Gems
 *  Modify /config/database.yml and /db/environments.rb to reflect your database settings
-*  From the root directory, execute rake db:create, rake db:migrate
-*  Choose your deployment option.  Blotter runs using any rack based application deployment option.  Here are some options: [Sinatra Recipes - Deployment](http://recipes.sinatrarb.com/p/deployment?#article)
-*  Deployment tested using [Apache and Passenger](http://recipes.sinatrarb.com/p/deployment/apache_with_passenger?#article)
-
-##### IMPORTANT Deployment Steps
-
-*  After you have the site running, visit yourdomain.com/install where yourdomain.com is your hosted domain name 
-*  Create your first user at /install, anyone will be able to create a user, so do this quickly
+*  Execute rake db:create and rake db:migrate in the root directory
+*  Choose your web server, [Sinatra Recipes - Deployment](http://recipes.sinatrarb.com/p/deployment?#article).  Deployment has been tested using [Apache and Passenger](http://recipes.sinatrarb.com/p/deployment/apache_with_passenger?#article)
+*  Once the site is running, visit yourdomain.com/install 
+*  Create the administrative account at /install, anyone will be able to create a user, so do this quickly
 *  Site settings can be found at /admin/settings, update to reflect your blog's information
-*  You will have to configure the /contact page by editing the correct route and adding in your email settings
+
+#### Troubleshooting
+
+*  The contact page is currently left unconfigured in the Sinatra route.  You must add your email settings to have a functional email form.
 
 #### Future Features
 
-1.  Theme Customization Settings
-2.  Comments
-3.  Comment Moderation Settings
-4.  Categories
-5.  Categories Settings
-6.  Archives Page
-7.  Media Gallery
-8.  Media Uploads
-9.  Contact Information Settings
-10.  Email Server settings
-11.  Database Exports / Backup
+(In no peticular order)
 
-*  Note:  This app is a work in progress and is meant to be an eventual Wordpress replacement software for [Exit Status One](http://exitstatusone.com).
+*  Theme Customization Settings
+*  Comments and comment moderation
+*  Categories
+*  Archives and Search
+*  Media Gallery and uploads
+*  Email and Contact Settings
+*  Database Export for backup
