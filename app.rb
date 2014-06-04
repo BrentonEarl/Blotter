@@ -8,6 +8,8 @@ require "pony"
 require "./db/environments"
 require "./db/models/init"
 
+set :environment, :production
+
 class Application < Sinatra::Base
   use Rack::Flash, :sweep => true 
   helpers Sinatra::Cookies
