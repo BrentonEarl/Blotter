@@ -1,12 +1,13 @@
 body {
 font:normal 13px/22px sans-serif;
-background:#ccc;
+background:#204a87;
 }
 
 a, p, h1, h2, h3, h4, h5 {
 text-shadow:0 0 0 #111,1px 1px 0 #fff;
 color:#222;
 }
+
 
 a {
 text-decoration: none;

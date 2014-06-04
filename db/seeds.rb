@@ -4,19 +4,21 @@ print "\n\n"
 print "Seed:  Created 1 Test Post."
 print "\n"
 if Posts.count == 0
-    post = Posts.new
-    category = Category.new
+  5.times do
+      post = Posts.new
+      category = Category.new
     
-    post.title = "Testing"
-    post.author = "Brenton Earl"
-    post.summary = "This is a test post."
-    post.body = "Welcome to the site.  This is a test post."
-    # Add category
-    category.name = "Test"
-    post.categories << category
-    
-    post.save
-    print " Created post."
+      post.title = "Testing"
+      post.author = "Brenton Earl"
+      post.summary = "Welcome to the site.  This is a test post."
+      post.body = "Welcome to the site.  This is a test post."
+      # Add category
+      category.name = "Test"
+      post.categories << category
+      
+      post.save
+  end
+  print " Created posts."
 else
   print " Post not created.  It already exists"
 end
