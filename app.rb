@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
 
-require 'sinatra'
-require 'sinatra/activerecord'
+require "sinatra"
+require "sinatra/activerecord"
 require "sinatra/cookies"
-require 'rack-flash'
-require 'pony'
-require './db/environments'
-require './db/models/init'
+require "rack-flash"
+require "pony"
+require "./db/environments"
+require "./db/models/init"
 
 class Application < Sinatra::Base
   use Rack::Flash, :sweep => true 
@@ -94,6 +94,14 @@ class Application < Sinatra::Base
     ####
   end
   #### END HELPERS
+  #### Errors and Pages not found
+  not_found do
+    erb :'404'
+  end
+  error do
+    'Oh no, you ran into an error - ' + env['sinatra.error'].name
+  end
+  ####
   #### Installation 
   get '/install' do
     user = User.first()
