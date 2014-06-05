@@ -1,21 +1,24 @@
 body {
 font:normal 13px/22px sans-serif;
 background:#204a87;
+color:#555;
 }
-
-a, p, h1, h2, h3, h4, h5 {
-text-shadow:0 0 0 #111,1px 1px 0 #fff;
-color:#222;
-}
-
 
 a {
+color:#555;
 text-decoration: none;
 }
 
 a:hover {
 color: #000;
-text-decoration:underline;
+}
+
+nav, footer, header, section, .admin_table {
+width:80%;
+}
+
+header {
+	
 }
 
 header, nav, section, footer, .form, .form input, .admin_table {
@@ -24,13 +27,11 @@ margin-right: auto;
 }
 
 nav, footer, header {
-width:90%;
 margin-bottom:1.5%;
 background:transparent;
 }
 
 section {
-width:90%;
 margin-bottom:1.5%;
 background:#f3f3f3;
 border-radius:50px 0 50px;
@@ -58,8 +59,9 @@ display:inline;
 }
 
 article {
-margin:2%;
-width:100%;
+margin-right:3%;
+margin-left:3%;
+width:93%;
 }
 
 footer {
@@ -82,7 +84,6 @@ height:100px;
 }
 
 .admin_table {
-width: 90%;
 margin-bottom:2%;
 }
 
