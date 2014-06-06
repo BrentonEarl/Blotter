@@ -191,6 +191,11 @@ class Application < Sinatra::Base
     end
   end
   ####
+  #### Archives page
+    get '/archives' do
+      erb :archives
+    end
+  ####
   #### Login
   get '/login' do
     erb :'sessions/login'
