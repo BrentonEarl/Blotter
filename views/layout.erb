@@ -14,20 +14,20 @@
 </head>
 <body>
   <header>
-    <h1><a href="/"><%= information.name %></a></h1>
-    <% if signed_in? %>
-    <p id="tagline"><%= information.tagline %><br />&raquo; <a href="/admin">Administrative Panel</a> &raquo; <a href="/logout">Sign Out</a></p>
-    <% else %>
-    <p id="tagline"><%= information.tagline %><br />&raquo; <a href="/login">Sign In</a></p>
-    <% end %>
+  	<div id="header">
+    <h1 id="title"><a href="/"><%= information.name %></a></h1>
+    
+    <p id="tagline"><%= information.tagline %></p>
+	<nav>
+    	<ul>
+    		<li><a href="/">Home</a></li>
+    		<li><a href="/about">About</a></li>
+    		<li><a href="/contact">Contact</a></li>
+    		<li><a href="/archives">Archives</a></li>
+    	</ul>
+  	</nav>
+  	</div>
   </header>
-  <nav>
-    <ul>
-      <li>&raquo; <a href="/">Home</a></li>
-      <li>&raquo; <a href="/about">About</a></li>
-      <li>&raquo; <a href="/contact">Contact</a></li>
-    </ul>
-  </nav>
   <section>
   <% %w[notice error warning alert info].each do |key| %>
     <% if flash[key] %>
@@ -39,7 +39,11 @@
     <%= yield %>
   </section>
   <footer>
-    <p>&copy; <a href="http://exitstatusone.com"><%= information.name %></a> | Powered by &raquo; <a href="http://www.sinatrarb.com/">Sinatra</a><br />
+  	<% if signed_in? %>
+    <p>&copy; <a href="http://exitstatusone.com"><%= information.name %></a> | Powered by &raquo; <a href="http://www.sinatrarb.com/">Sinatra</a> | &raquo; <a href="/admin">Administrative Panel</a> &raquo; <a href="/logout">Sign Out</a></p>
+    <% else %>
+    <p><p>&copy; <a href="http://exitstatusone.com"><%= information.name %></a> | Powered by &raquo; <a href="http://www.sinatrarb.com/">Sinatra</a> | &raquo; <a href="/login">Sign In</a></p>
+    <% end %>
   </footer>
 </body>
 </html>

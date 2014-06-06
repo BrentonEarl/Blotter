@@ -4,6 +4,7 @@ print "\n\n"
 print "Seed:  Created 1 Test Post."
 print "\n"
 if Posts.count == 0
+  20.times do
   post = Posts.new
   category = Category.new
   
@@ -16,7 +17,8 @@ if Posts.count == 0
   post.categories << category
 
   post.save
-  print " Created post."
+  end
+    print " Created posts."
 else
   print " Post not created.  It already exists"
 end
