@@ -193,6 +193,8 @@ class Application < Sinatra::Base
   ####
   #### Archives page
     get '/archives' do
+      @posts = Posts.all
+      @post_months = @posts.group_by { |m| m.created_at.beginning_of_month }
       erb :archives
     end
   ####
@@ -270,6 +272,7 @@ class Application < Sinatra::Base
       post.author =  params[:author]
       post.summary = params[:summary]
       post.body = params[:body]
+      post.created_at = Time.now.strftime('%m-%d-%Y %I:%M%p')
       category.name = params[:category]
       post.categories << category
       if post.save

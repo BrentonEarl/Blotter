@@ -4,8 +4,8 @@ only screen and (-webkit-min-device-pixel-ratio : 1.5),
 only screen and (min-device-pixel-ratio : 1.5) {
 /* Styles */
 
-	#header h1 {
-	font-size: 0.80em;
+	#title a {
+	font-size: 1.9em;
 	}
 	#tagline {
 		font-size: 0.65em;
@@ -43,8 +43,8 @@ and (max-device-width : 480px) {
 /* Smartphones landscape */
 @media only screen
 and (min-width : 321px) {
-	#header h1 {
-	font-size: 1em;
+	#title a {
+	font-size: 2.6em;
 	}
 	#tagline {
 		font-size: 1em;
@@ -71,8 +71,8 @@ and (min-width : 321px) {
 /* Smartphones portrait */
 @media only screen
 and (max-width : 320px) {
-	#header h1 {
-	font-size: 0.80em;
+	#title a {
+	font-size: 2.5em;
 	}
 	#tagline {
 		font-size: 0.65em;
@@ -102,8 +102,8 @@ and (min-width : 1224px) {
 	body {
 		font-size:0.875em;
 	}
-	#header h1 {
-		font-size: 1.2em;
+	#title a {
+		font-size: 2.5em;
 	}
 	#tagline {
 		font-size: 1em;
@@ -134,8 +134,8 @@ and (min-width : 1824px) {
 		body {
 		font-size:0.875em;
 	}
-	#header h1 {
-		font-size: 1em;
+	#title a {
+		font-size: 2.5em;
 	}
 	#tagline {
 		font-size: 1em;
@@ -191,11 +191,18 @@ box-shadow:0 0 3.750em #3F1F1F;
 border:0.063em solid #3F1F1F;
 }
 
+#title a, h1, h2 {
+text-align:right;
+margin-right:3%;	
+}
+
 #title a, h1, h2, h3 {
 font-family: 'Luckiest Guy', cursive;
-text-align:right;
-margin-right:3%;
 color: #B81D18;
+}
+
+#title a {
+text-decoration:none;
 }
 
 header {
@@ -210,11 +217,6 @@ margin:0 auto;
 padding:0;
 border-radius:0 0 1.875em 1.875em;
 margin-bottom:2.5%;
-}
-
-#title a {
-text-decoration:none;
-font-size: 2.250em;
 }
 
 #tagline {
@@ -259,6 +261,30 @@ margin-right:3%;
 margin-left:3%;
 width:93%;
 }
+
+#archives h3 {
+text-align:center;
+}
+
+#archives hr {
+height: 30px;
+border-style: solid;
+border-color: #B81D18;
+border-width: 1px 0 0 0;
+border-radius: 20px;
+}
+
+#archives hr:before {
+display: block;
+content: "";
+height: 30px;
+margin-top: -31px;    
+border-style: solid;
+border-color: #B81D18;
+border-width: 0 0 1px 0;
+border-radius: 20px;
+}
+
 
 footer {
 width:98%;
