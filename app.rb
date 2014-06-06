@@ -127,7 +127,7 @@ class Application < Sinatra::Base
   #### Root
   get '/' do
     information
-    @post = Posts.order("created_at DESC")
+    @post = Posts.order("created_at DESC").limit(5)
     erb :index
   end
   ####
@@ -190,7 +190,7 @@ class Application < Sinatra::Base
       redirect '/login'
     end
   end
-  ####  
+  ####
   #### Login
   get '/login' do
     erb :'sessions/login'
