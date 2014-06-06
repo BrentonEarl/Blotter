@@ -31,7 +31,7 @@ print "\n"
 if SiteSettings.count == 0
   SiteSettings.create(
   name: "Exit Status One",
-  tagline: "News, Linux, Ruby, Music",
+  tagline: "Possesion of anything begins in the mind...",
   author: "Brenton Earl",
   meta_description: "A compilation on information about music, Linux, Ruby programming and interesting news.",
   meta_keywords: "Linux, Ruby, Sinatra, Rails, SQL, HTML, CSS, Music, Punk, Rock, Indie",
