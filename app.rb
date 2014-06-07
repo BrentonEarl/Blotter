@@ -200,14 +200,14 @@ class Application < Sinatra::Base
   end
   ####
   #### Categories Page
-  get '/category/:category' do
+  get '/category/:category' do  ### Add Route error handling
     begin
       @category = Category.find_by(name: params[:category])
       @categories = Category.where(name: params[:category])
       erb :categories
     rescue
       flash[:error] = "That category does not exist."
-      redirect '/'
+      redirect '/404'
     end
   end 
   ####
@@ -300,7 +300,7 @@ class Application < Sinatra::Base
     end
   end
 
-  get '/posts/:id/edit' do
+  get '/posts/:id/edit' do  ### Add Route error handling
     if signed_in?
       @post = Posts.find(params[:id])
       @category = Category.joins(:posts).find_by(posts: { id: params[:id] })
@@ -311,7 +311,7 @@ class Application < Sinatra::Base
     end 
   end
 
-  post '/posts/:id/edit' do
+  post '/posts/:id/edit' do  ### Add Route error handling
     if signed_in?
       post = Posts.find(params[:id])
       category = Category.joins(:posts).find_by(posts: { id: params[:id] })
@@ -334,8 +334,13 @@ class Application < Sinatra::Base
 
   get '/posts/:id/delete' do
     if signed_in?
-      @post = Posts.find(params[:id])
-      erb :'posts/delete'
+      if Posts.exists?(params[:id])
+        @post = Posts.find(params[:id])
+        erb :'posts/delete'
+      else
+        status 404
+        redirect '/404'
+      end
     else
       alert_error
       redirect '/login'
@@ -344,8 +349,13 @@ class Application < Sinatra::Base
 
   post '/posts/:id' do
     if signed_in?
-      Posts.find(params[:id]).destroy
-      redirect '/admin'
+      if Posts.exists?(params[:id])
+        Posts.find(params[:id]).destroy
+        redirect '/admin'
+      else
+        status 404
+        redirect '/404'
+      end
     else
       alert_error
       redirect '/login'
@@ -358,9 +368,14 @@ class Application < Sinatra::Base
   
   get '/posts/:id' do
     information
-    @post = Posts.find(params[:id])
-    @category = Category.joins(:posts).find_by(posts: { id: params[:id] })
-    erb :'posts/view'
+    if Posts.exists?(params[:id])
+      @post = Posts.find(params[:id]) 
+      @category = Category.joins(:posts).find_by(posts: { id: params[:id] }) 
+      erb :'posts/view'
+    else
+      status 404
+      redirect '/404'
+    end
   end
   ####
 end
