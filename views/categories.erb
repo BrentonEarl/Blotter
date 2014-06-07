@@ -1,0 +1,10 @@
+<article id="archives_category">
+	<h2><%= @category.name %></h2>
+	<% for category in @categories %>
+	<ul>
+		<% for post in category.posts %>
+		<li><a href="/posts/<%= post.id %>"><%= post.title %></a></li>
+		<% end %>
+	</ul>
+	<% end %>
+</article>

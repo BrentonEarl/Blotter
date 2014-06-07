@@ -102,7 +102,7 @@ class Application < Sinatra::Base
     erb :'404'
   end
   error do
-    'Oh no, you ran into an error - ' + env['sinatra.error'].name
+    erb :'500'
   end
   ####
   #### Installation 
@@ -127,7 +127,7 @@ class Application < Sinatra::Base
   #### Root
   get '/' do
     information
-    @post = Posts.order("created_at DESC").limit(5)
+    @post = Posts.order("created_at DESC").limit(6)
     erb :index
   end
   ####
@@ -192,11 +192,23 @@ class Application < Sinatra::Base
   end
   ####
   #### Archives page
-    get '/archives' do
-      @posts = Posts.all
-      @post_months = @posts.group_by { |m| m.created_at.beginning_of_month }
-      erb :archives
+  get '/archives' do
+    posts = Posts.all
+    @post_months = posts.group_by { |m| m.created_at.beginning_of_month }
+    erb :archives
+  end
+  ####
+  #### Categories Page
+  get '/category/:category' do
+    begin
+      @category = Category.find_by(name: params[:category])
+      @categories = Category.where(name: params[:category])
+      erb :categories
+    rescue
+      flash[:error] = "That category does not exist."
+      redirect '/'
     end
+  end 
   ####
   #### Login
   get '/login' do
@@ -338,7 +350,11 @@ class Application < Sinatra::Base
       redirect '/login'
     end
   end
-    
+  
+  get '/posts/' do
+    redirect '/archives'
+  end
+  
   get '/posts/:id' do
     information
     @post = Posts.find(params[:id])

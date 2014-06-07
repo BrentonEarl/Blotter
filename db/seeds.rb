@@ -14,7 +14,7 @@ if Posts.count == 0
     post.body = "Welcome to the site.  Over the next few days there may be a some changes in the event that something does not work as expected.  For all intensive purposes though, the site is launched.  Please bookmark the site and keep coming back!"
     post.created_at = Time.now.strftime('%m-%d-%Y %I:%M%p')
 
-    category.name = "Update 1"
+    category.name = "UpdateOne"
     post.categories << category
 
     post.save
@@ -33,7 +33,7 @@ if Posts.count == 0
     post.body = "Welcome to the site.  Over the next few days there may be a some changes in the event that something does not work as expected.  For all intensive purposes though, the site is launched.  Please bookmark the site and keep coming back!"
     post.created_at = last_month.strftime('%m-%d-%Y %I:%M%p')
 
-    category.name = "Update 2"
+    category.name = "UpdateTwo"
     post.categories << category
 
     post.save
@@ -53,7 +53,7 @@ if Posts.count == 0
     post.body = "Welcome to the site.  Over the next few days there may be a some changes in the event that something does not work as expected.  For all intensive purposes though, the site is launched.  Please bookmark the site and keep coming back!"
     post.created_at = last_year.strftime('%m-%d-%Y %I:%M%p')
 
-    category.name = "Update 3"
+    category.name = "UpdateThree"
     post.categories << category
 
     post.save

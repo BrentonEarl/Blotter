@@ -262,11 +262,11 @@ margin-left:3%;
 width:93%;
 }
 
-#archives h3 {
+#archives_category h3 {
 text-align:center;
 }
 
-#archives hr {
+#archives_category hr {
 height: 30px;
 border-style: solid;
 border-color: #B81D18;
@@ -274,7 +274,7 @@ border-width: 1px 0 0 0;
 border-radius: 20px;
 }
 
-#archives hr:before {
+#archives_category hr:before {
 display: block;
 content: "";
 height: 30px;
@@ -284,7 +284,6 @@ border-color: #B81D18;
 border-width: 0 0 1px 0;
 border-radius: 20px;
 }
-
 
 footer {
 width:98%;

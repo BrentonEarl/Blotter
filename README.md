@@ -33,10 +33,8 @@ __Deployment__
 
 ### Future Features
 
-(In no peticular order)
-
-*  Archives and Search
 *  Media Gallery and uploads
 *  Comments and comment moderation
 *  Theme Customization Settings
 *  Database Export for backup
+*  Error handling for 404 and 500 statuses

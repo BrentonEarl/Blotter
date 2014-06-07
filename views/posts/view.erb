@@ -1,6 +1,8 @@
 <article>
 <h2> <%= @post.title %> </h2>
 <p>Posted on &raquo; <%= @post.created_at %></p>
-<p class="categories">Category &raquo; <%= @category.name %></p><br />
+<p class="categories">
+	Category &raquo; <a href="/category/<%= @category.name %>"><%= @category.name %></a>
+</p><br />
 <p> <%= @post.body %></p>
 </article>
