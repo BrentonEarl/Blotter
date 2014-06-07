@@ -97,6 +97,7 @@ DEPENDENCIES
   mysql (= 2.9.1)
   pony (= 1.8)
   rack-flash3 (= 1.0.5)
+  rack-protection (= 1.5.3)
   sinatra (= 1.4.5)
   sinatra-activerecord (= 2.0.2)
   sinatra-contrib (= 1.4.2)

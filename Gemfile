@@ -8,6 +8,7 @@ gem 'sinatra-activerecord', '2.0.2'
 gem 'activerecord', '4.1.1'
 gem 'haml', '4.0.5'
 gem 'rack-flash3', '1.0.5'
+gem 'rack-protection', '1.5.3'
 gem 'bcrypt-ruby', '3.1.5'
 gem 'pony', '1.8'
 

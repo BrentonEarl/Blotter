@@ -4,6 +4,7 @@ require "sinatra"
 require "sinatra/activerecord"
 require "sinatra/cookies"
 require "rack-flash"
+require "rack/protection"
 require "haml"
 require "pony"
 require "./db/environments"
@@ -12,6 +13,7 @@ require "./db/models/init"
 set :environment, :production
 
 class Application < Sinatra::Base
+  use Rack::Protection
   use Rack::Flash, :sweep => true 
   helpers Sinatra::Cookies
   enable :sessions
