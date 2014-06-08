@@ -7,10 +7,6 @@
 /log/*.log
 /tmp
 
-# Ignore Cucumber files
-/features/*
-/features/step_definitions/*
-/features/support/*
 *.gem
 *.rbc
 /.config
