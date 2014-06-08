@@ -14,8 +14,12 @@ gem 'pony', '1.8'
 
 group :development, :test do
   gem 'sqlite3', '1.3.9'
-  gem 'cucumber', '1.3.15'
-  gem 'capybara', '2.2.1'
+  gem 'rspec', '3.0.0'
+end
+
+group :test do
+  gem 'selenium-webdriver', '2.42.0'
+  gem 'capybara', '2.3.0'
 end
 
 group :production do
