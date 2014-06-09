@@ -96,7 +96,7 @@ class Application < Sinatra::Base
     erb :'about/view'
   end
  
-   get '/about/edit' do
+	get '/about/edit' do
     if signed_in?
       information
       erb :'about/edit'
@@ -106,8 +106,8 @@ class Application < Sinatra::Base
     end 
   end 
   
-    post '/about/edit' do  ### About Page is not updating
-    if signed_in?
+	post '/about/edit' do
+		if signed_in?
       information
       information.about_site = params[:about_site]
       if information.save
@@ -271,10 +271,10 @@ class Application < Sinatra::Base
 
   get '/posts/:id/delete' do
     if signed_in?
-      if Posts.exists?(params[:id])
+      begin
         find_post_by_id
         erb :'posts/delete'
-      else
+			rescue
         status 404
         redirect '/404'
       end
@@ -286,10 +286,10 @@ class Application < Sinatra::Base
 
   post '/posts/:id' do
     if signed_in?
-      if Posts.exists?(params[:id])
+    	begin
         Posts.find(params[:id]).destroy
         redirect '/admin'
-      else
+			rescue
         status 404
         redirect '/404'
       end
@@ -298,18 +298,18 @@ class Application < Sinatra::Base
       redirect '/login'
     end
   end
-  
+
   get '/posts/' do
     redirect '/archives'
   end
   
   get '/posts/:id' do
     information
-    if Posts.exists?(params[:id])
+		begin
       find_post_by_id 
       find_category_by_post_id 
       erb :'posts/view'
-    else
+		rescue
       status 404
       redirect '/404'
     end
