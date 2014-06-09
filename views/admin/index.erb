@@ -5,12 +5,29 @@
 		<th></th>
 	</tr>
 	<tr>		
-		<td><a href="/posts/new">Create A Post</a></a></td>
-		<td><a href="/admin/settings">Site Settings</a></td>
+		<td><a href="/posts/new">Create A Post</a></td>
+		<td><a href="/pages/new">Create A Page</a></td>
 		<td><a href="/logout">Sign Out</a></td>
 	</tr>
 </table>
-<h2>All Site Content</h2>
+<h2>All Site Pages</h2>
+<table class="admin_table">
+	<tr>
+		<td>Title</td>
+ 		<td>Created</td>
+ 		<td>Action</td>
+ 	</tr>
+	<% @links.each do |page| %>
+	<tr>
+		<td><a href="/pages/<%= page.id %>"><%= page.title %></a></td>
+		<td><%= page.created_at %></td>
+		<td>
+			<a href="/pages/<%= page.id %>/edit">Edit</a> | <a href="/pages/<%= page.id %>/delete">Delete</a>
+		</td>
+	</tr>
+  <% end %>
+</table>
+<h2>All Site Posts</h2>
 <table class="admin_table">
 	<tr>
 		<td>Title</td>

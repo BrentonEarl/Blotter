@@ -1,0 +1,38 @@
+<script type="text/javascript">
+var rte = new Rte('textarea', {
+toolbar: 'extra'
+
+});
+
+Rte.Tags = {
+  Bold:      'b',
+  Italic:    'i',
+  Underline: 'u',
+  Strike:    's',
+  Ttext:     'tt',
+  Code:      'pre',
+  Quote:     'blockquote',
+  Header:    'h2'
+};
+
+Rte.Formats = {
+  'h1':         'Header 1',
+  'h2':         'Header 2',
+  'h3':         'Header 3',
+  'h4':         'Header 4',
+  'p':          'Paragraph',
+  'pre':        'Preformatted',
+  'blockquote': 'Blockquote',
+  'tt':         'Typetext',
+  'address':    'Address'
+};
+</script>
+<h2>Create a New Page:</h2>
+<form action="/pages/new" method="post" class="form">
+<label for="title">Title</label><br />
+<input type="text" name="title"><br />
+<label for="body">Body</label><br />
+<textarea name="body" data-rte="{ toolbar: 'extra' }"></textarea><br /><br />
+<input type="submit" value="Create Post"/>
+</form>
+<br />

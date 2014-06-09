@@ -1,0 +1,9 @@
+<article>
+<h2><%= @title %></h2>
+  <% @pages.each do |page| %>
+    <p id="site_pages">
+      <a href="/page/<%= page.id %>"><%= page.title %></a>
+    </p>
+    <br />
+  <% end %>
+</article>

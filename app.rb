@@ -28,9 +28,15 @@ class Application < Sinatra::Base
 
   #### 404 and 500
   not_found do
+  	information
+  	list_all_pages
+  	@title = "Not Found"
     erb :'404'
   end
   error do
+  	information
+  	list_all_pages
+  	@title = "Error"
     erb :'500'
   end
 
@@ -38,6 +44,7 @@ class Application < Sinatra::Base
   #### Installation 
   get '/install' do
   	information
+  	list_all_pages
   	@title = "Site Installation"
     user = User.first()
     if user == nil
@@ -60,6 +67,7 @@ class Application < Sinatra::Base
   #### Root
   get '/' do
   	information
+  	list_all_pages
 		@title = "Index"
     @post = Posts.order("created_at DESC").limit(6)
     erb :index
@@ -69,6 +77,7 @@ class Application < Sinatra::Base
   #### Contact Us
   get '/contact' do
     information
+    list_all_pages
     @title = "Contact Us"
     erb :contact
   end
@@ -91,13 +100,14 @@ class Application < Sinatra::Base
         }
       })
     flash[:notice] = "Your email has been sent.  You will be contacted shortly."
-    redirect '/' 
+    redirect '/contact' 
   end
 
 
   #### Archives page
   get '/archives' do
     information
+    list_all_pages
     @title = "Site Archives"
     posts = Posts.all
     @post_months = posts.group_by { |m| m.created_at.beginning_of_month }
@@ -107,8 +117,9 @@ class Application < Sinatra::Base
 
   #### Categories Page
   get '/category/:category' do  ### Add Route error handling
-    information
     begin
+      information
+	    list_all_pages
       @category = Category.find_by(name: params[:category])
       @categories = Category.where(name: params[:category])
       @title = "Category: " + @category.name
@@ -123,6 +134,7 @@ class Application < Sinatra::Base
   #### Login
   get '/login' do
   	information
+  	list_all_pages
     @title = "Log In"
     erb :'sessions/login'
   end
@@ -131,6 +143,7 @@ class Application < Sinatra::Base
     authenticate
   end
 
+
   #### Destroy Login Session
   get '/logout' do
     sign_out
@@ -138,43 +151,13 @@ class Application < Sinatra::Base
     redirect '/'
   end
 
-#  #### Admin Panel
-#  get '/admin/settings' do
-#    if signed_in?
-#     	information
-#	    @title = "Site Settings"
-#      erb :'admin/settings'
-#    else
-#      error
-#      redirect '/login'
-#    end
-#  end
 
-#  post '/admin/settings/save' do
-#    if signed_in?
-#      data = SiteSettings.find_by(id: "1")
-#      data.name = params[:name]
-#      data.tagline = params[:tagline]
-#      data.author = params[:author]
-#      data.meta_description = params[:description]
-#      data.meta_keywords = params[:keywords]
-#      if data.save
-#        notice
-#        redirect '/admin' 
-#      else
-#        error
-#        redirect '/login'
-#      end
-#    else
-#      error
-#      redirect '/login'
-#    end
-#  end
-
+  #### Admin Panel
   get '/admin' do
     if signed_in?
     	information
     	@title = "Administration"
+    	list_all_pages
       @post = Posts.order("created_at DESC")
       erb :'admin/index'
     else
@@ -184,46 +167,135 @@ class Application < Sinatra::Base
 
 
 	#### Dynamic Pages
-  get '/pages' do
-  	@title = "Site Pages"
-    erb :'pages/view'
-  end
- 
-	get '/about/edit' do
+	get '/pages/new' do
+		if signed_in?
+			information
+			list_all_pages
+			@title= "New Page"
+			erb :'pages/new'
+		else
+			error
+			redirect '/login'
+		end
+	end
+	
+	post '/pages/new' do
+		if signed_in?
+			page = Pages.new
+			page.title = params[:title]
+			page.body = params[:body]
+			if page.save
+				redirect '/admin'
+			else
+				alert
+				redirect '/pages/new'
+			end
+		else
+			error
+			redirect '/login'
+		end
+	end
+	
+	get '/pages/:id/edit' do
     if signed_in?
-      information
-      erb :'about/edit'
+    	begin
+	      information
+ 	      list_all_pages
+	      find_page_by_id
+	      @title = @page.title
+  	    erb :'pages/edit'
+  	  rescue
+  	  	status 404
+  	  	redirect '/404'
+  	  end
+ 	  else
+ 	    error
+ 	    redirect '/login'
+    end 
+  end 
+  
+  post '/pages/:id/edit' do
+    if signed_in?
+      begin
+        find_page_by_id
+        @page.title = params[:title]
+        @page.body = params[:body]
+        if @page.save
+          notice
+          redirect '/admin'
+        else
+          alert
+          redirect '/admin'
+        end 
+      rescue
+        status 404 
+        redirect '/404'
+      end 
     else
       error
       redirect '/login'
     end 
-  end 
+  end
   
-	post '/about/edit' do
-		if signed_in?
-      information
-      information.about_site = params[:about_site]
-      if information.save
-        notice
-        redirect '/about'
-      else
-        alert
-        redirect '/about'
-      end
-    else
-      error
-      redirect '/login'
-    end
+  get '/pages/:id/delete' do
+  	if signed_in?
+  		begin
+  			information
+  			@title = "Delete Page"
+  			list_all_pages
+  			find_page_by_id
+  			erb :'pages/delete'
+  		rescue
+  			status 404
+  			redirect '/404'
+  		end
+  	else
+  		error
+  		redirect '/login'
+  	end
+  end
+  
+  post '/pages/:id' do
+  	if signed_in?
+  		begin
+  			Pages.find(params[:id]).destroy
+  			redirect '/admin'
+  		rescue
+  			status 404
+  			redirect '/404'
+			end
+		else
+			error
+			redirect '/login'
+		end
+	end
+	
+	get '/allpages' do
+		information
+		@title = "Site Pages"
+		list_all_pages
+ 		erb :'pages/allpages'
+	end
+	
+  get '/pages/:id' do
+  	begin
+  		information
+	  	find_page_by_id
+  		@title = @page.title
+  		list_all_pages
+  	  erb :'pages/view'
+  	rescue
+  		status 404
+  		redirect '/404'
+  	end
   end
 
-	
-	
-	
   #### Posts
   get '/posts/new' do
     if signed_in?
 	   	information
 	   	@title = "New Post"
+	   	list_all_pages
 	    erb :'posts/new'
     else
       error
@@ -259,6 +331,7 @@ class Application < Sinatra::Base
     	begin
     	  information
 	    	@title = "Edit Post"
+	    	list_all_pages
 	      find_post_by_id
   	    find_category_by_post_id
   	    erb :'posts/edit'
@@ -305,6 +378,7 @@ class Application < Sinatra::Base
      	  information
 	    	@title = "Delete Post"
         find_post_by_id
+        list_all_pages
         erb :'posts/delete'
 			rescue
         status 404
@@ -336,11 +410,12 @@ class Application < Sinatra::Base
   end
   
   get '/posts/:id' do
-    information
 		begin
+	    information
       find_post_by_id 
       find_category_by_post_id 
       @title = @post.title
+      list_all_pages
       erb :'posts/view'
 		rescue
       status 404

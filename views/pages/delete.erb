@@ -1,0 +1,26 @@
+<article>
+<h2>Are you sure?</h2>
+<table class="admin_table">
+	<tr>
+		<td>
+			<a href="/admin">No, Cancel</a>
+		</td>
+		<td>
+			<form action="/pages/<%= @page.id %>" method="post" class="form">
+			<input type="hidden" name="_method" value="delete" />
+			<input type="submit" value="Yes, Delete">
+			</form>
+		</td>
+	</tr>
+</table><br />
+<table class="admin_table">
+	<tr>
+		<td>Title</td>
+		<td>Body</td>
+	</tr>
+	<tr>
+		<td><%= @page.title %></td>
+		<td><%= @page.body %></td>
+	</tr>
+</table>
+</article>

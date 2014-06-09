@@ -1,0 +1,10 @@
+<aritcle>
+<h2><%= @title %></h2>
+<form action="/pages/<%= @page.id %>/edit" method="post" class="form">
+<label for="title">Title:</label><br />
+<input type="text" name="title" value="<%= @page.title %>"><br /><br />
+<label for="body">Body:</label><br />
+<textarea type="text" name="body" ><%= @page.body %></textarea><br /><br />
+<input id="page_submit" name="save" type="submit" value="Save" />
+</form><br />
+</aritcle>

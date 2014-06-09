@@ -15,6 +15,7 @@
   <!--[if lt IE 9]>
   <script src="dist/html5shiv.js"></script>
   <![endif]-->
+  <script src="/javascripts/RightJS/right.js"></script>
 </head>
 <body>
   <header>
@@ -25,7 +26,9 @@
 	<nav>
     	<ul>
     		<li><a href="/">Home</a></li>
-    		<li><a href="/about">About</a></li>
+    		<% @links.each do |link| %> 
+    		<li><a href="/pages/<%= link.id %>"><%= link.title %></a></li>
+    		<% end %>
     		<li><a href="/archives">Archives</a></li>
     		<li><a href="/contact">Contact</a></li>
     	</ul>
