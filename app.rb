@@ -22,7 +22,7 @@ class Application < Sinatra::Base
   helpers SiteAuthentication
   helpers FlashAlerts
   helpers Installation
-  helpers SiteInformation
+  helpers CommonQueries
 
 
   #### 404 and 500
@@ -238,8 +238,8 @@ class Application < Sinatra::Base
 
   get '/posts/:id/edit' do  ### Add Route error handling
     if signed_in?
-      @post = Posts.find(params[:id])
-      @category = Category.joins(:posts).find_by(posts: { id: params[:id] })
+      find_post_by_id
+      find_category_by_post_id
       erb :'posts/edit'
     else
       error
@@ -249,14 +249,14 @@ class Application < Sinatra::Base
 
   post '/posts/:id/edit' do  ### Add Route error handling
     if signed_in?
-      post = Posts.find(params[:id])
-      category = Category.joins(:posts).find_by(posts: { id: params[:id] })
-      post.title = params[:title]
-      post.author = params[:author]
-      post.summary = params[:summary]
-      post.body = params[:body]
-      category.update(name: params[:category])
-      if post.save
+      find_post_by_id
+      find_category_by_post_id
+      @post.title = params[:title]
+      @post.author = params[:author]
+      @post.summary = params[:summary]
+      @post.body = params[:body]
+      @category.update(name: params[:category])
+      if @post.save
       	notice
         redirect '/admin'
       else
@@ -272,7 +272,7 @@ class Application < Sinatra::Base
   get '/posts/:id/delete' do
     if signed_in?
       if Posts.exists?(params[:id])
-        @post = Posts.find(params[:id])
+        find_post_by_id
         erb :'posts/delete'
       else
         status 404
@@ -306,8 +306,8 @@ class Application < Sinatra::Base
   get '/posts/:id' do
     information
     if Posts.exists?(params[:id])
-      @post = Posts.find(params[:id]) 
-      @category = Category.joins(:posts).find_by(posts: { id: params[:id] }) 
+      find_post_by_id 
+      find_category_by_post_id 
       erb :'posts/view'
     else
       status 404
