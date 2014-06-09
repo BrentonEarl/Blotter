@@ -236,33 +236,43 @@ class Application < Sinatra::Base
     end
   end
 
-  get '/posts/:id/edit' do  ### Add Route error handling
+  get '/posts/:id/edit' do ## Consider better route error handling
     if signed_in?
-      find_post_by_id
-      find_category_by_post_id
-      erb :'posts/edit'
+    	begin
+	      find_post_by_id
+  	    find_category_by_post_id
+  	    erb :'posts/edit'
+  	  rescue
+  	  	status 404
+  	  	redirect '/404'
+  	  end
     else
       error
       redirect '/login'
     end 
   end
 
-  post '/posts/:id/edit' do  ### Add Route error handling
+  post '/posts/:id/edit' do  ## Consider better route error handling
     if signed_in?
-      find_post_by_id
-      find_category_by_post_id
-      @post.title = params[:title]
-      @post.author = params[:author]
-      @post.summary = params[:summary]
-      @post.body = params[:body]
-      @category.update(name: params[:category])
-      if @post.save
-      	notice
-        redirect '/admin'
-      else
-        alert
-        redirect '/posts/new'
-      end
+    	begin
+	      find_post_by_id
+  	    find_category_by_post_id
+  	    @post.title = params[:title]
+  	    @post.author = params[:author]
+  	    @post.summary = params[:summary]
+  	    @post.body = params[:body]
+  	    @category.update(name: params[:category])
+  	    if @post.save
+  	    	notice
+  	      redirect '/admin'
+  	    else
+  	      alert
+  	      redirect '/posts/new'
+  	    end
+			rescue
+				status 404
+				redirect '/404'
+			end
     else
       error
       redirect '/login'
