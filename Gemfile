@@ -14,6 +14,7 @@ gem 'pony', '1.8'
 
 group :development, :test do
   gem 'sqlite3', '1.3.9'
+  gem 'database_cleaner', '1.3.0'
   gem 'cucumber', '1.3.15'
   gem 'capybara', '2.3.0'
 end
