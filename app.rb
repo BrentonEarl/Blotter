@@ -6,106 +6,34 @@ require "sinatra/cookies"
 require "rack-flash"
 require "rack/protection"
 require "pony"
-require "./db/environments"
-require "./db/models/init"
 
-set :environment, :production
+
+require_relative "db/environments"
+require_relative "db/models/init"
+require_relative "helpers/helpers.rb"
 
 class Application < Sinatra::Base
+
   use Rack::Protection
   use Rack::Flash, :sweep => true 
+
   helpers Sinatra::Cookies
   enable :sessions
+  helpers SiteAuthentication
+  helpers FlashAlerts
+  helpers Installation
+  helpers SiteInformation
 
-  #### BEGIN HELPERS
-  helpers do
-    #### Site Information
-    def information
-      SiteSettings.first()
-    end 
-    ####
-    #### Flash alerts  
-    def alert_notice
-      flash[:notice] = "All changes saved."
-    end
-    def alert_error
-      flash[:error] = "You must be authenticated to do that."
-    end
-    def alert_warning
-      flash[:warning] = "Please enter the correct credentials."
-    end
-    def alert_alert
-      flash[:alert] = "Please enter valid data."
-    end
-    ####
-    #### Authentication
-    def authenticate
-      user = User.find_by(email: params[:email].downcase)
-      if user && user.authenticate(params[:password])
-      # Sign the user in, create session, and redirect to the users page
-        sign_in user
-        flash[:notice] = "Welcome, #{user.name}!"
-        redirect '/admin'
-      else
-        alert_warning
-        redirect '/login'
-      end
-    end
-    ####
-    #### User Sign In and Sign Out
-    def sign_in(user)
-      remember_token = User.new_remember_token
-      cookies[:remember_token] = remember_token
-      user.update_attribute(:remember_token, User.digest(remember_token))
-      self.current_user = user
-    end
 
-    def signed_in?
-      !current_user.nil?
-    end
-    
-    def current_user=(user)
-      @current_user = user
-    end
-    
-    def current_user
-      remember_token = User.digest(cookies[:remember_token])
-      @current_user ||= User.find_by(remember_token: remember_token)
-    end
-
-    def sign_out
-      current_user.update_attribute(:remember_token, User.digest(User.new_remember_token))
-      cookies[:remember_token] = nil
-      self.current_user = nil
-    end     
-    ####
-    #### Install first user
-    #### Install site settings
-    def create_user
-      @user = User.new
-      @user.name = params[:name]
-      @user.email = params[:email]
-      @user.password = params[:password]
-      @user.password_confirmation = params[:password_confirmation]
-      if @user.save
-        alert_notice
-        authenticate
-      else
-        alert_alert
-        redirect '/install'
-      end
-    end
-    ####
-  end
-  #### END HELPERS
-  #### Errors and Pages not found
+  #### 404 and 500
   not_found do
     erb :'404'
   end
   error do
     erb :'500'
   end
-  ####
+
+
   #### Installation 
   get '/install' do
     user = User.first()
@@ -124,14 +52,16 @@ class Application < Sinatra::Base
       redirect '/'
     end
   end
-  ####
+
+
   #### Root
   get '/' do
     information
     @post = Posts.order("created_at DESC").limit(6)
     erb :index
   end
-  ####
+
+
   #### Contact Us
   get '/contact' do
     information
@@ -158,7 +88,8 @@ class Application < Sinatra::Base
     flash[:notice] = "Your email has been sent.  You will be contacted shortly."
     redirect '/' 
   end
-  ####
+
+
   #### About Us
   get '/about' do
     information
@@ -170,7 +101,7 @@ class Application < Sinatra::Base
       information
       erb :'about/edit'
     else
-      alert_error
+      error
       redirect '/login'
     end 
   end 
@@ -180,25 +111,27 @@ class Application < Sinatra::Base
       information
       information.about_site = params[:about_site]
       if information.save
-        alert_notice
+        notice
         redirect '/about'
       else
-        alert_alert
+        alert
         redirect '/about'
       end
     else
-      alert_error
+      error
       redirect '/login'
     end
   end
-  ####
+
+
   #### Archives page
   get '/archives' do
     posts = Posts.all
     @post_months = posts.group_by { |m| m.created_at.beginning_of_month }
     erb :archives
   end
-  ####
+
+
   #### Categories Page
   get '/category/:category' do  ### Add Route error handling
     begin
@@ -210,7 +143,8 @@ class Application < Sinatra::Base
       redirect '/404'
     end
   end 
-  ####
+
+
   #### Login
   get '/login' do
     erb :'sessions/login'
@@ -219,20 +153,21 @@ class Application < Sinatra::Base
   post '/session/create' do # Create Session
     authenticate
   end
-  ####
+
   #### Destroy Login Session
   get '/logout' do
     sign_out
     flash[:notice] = "You are signed out."
     redirect '/'
   end
-  ####
+
+
   #### Admin Panel
   get '/admin/settings' do
     if signed_in?
       erb :'admin/settings'
     else
-      alert_error
+      error
       redirect '/login'
     end
   end
@@ -246,14 +181,14 @@ class Application < Sinatra::Base
       data.meta_description = params[:description]
       data.meta_keywords = params[:keywords]
       if data.save
-        alert_notice
+        notice
         redirect '/admin' 
       else
-        alert_error
+        error
         redirect '/login'
       end
     else
-      alert_error
+      error
       redirect '/login'
     end
   end
@@ -266,13 +201,14 @@ class Application < Sinatra::Base
       redirect '/login'
     end
   end
-  ####
+
+
   #### Posts
   get '/posts/new' do
     if signed_in?
     erb :'posts/new'
     else
-      alert_error
+      error
       redirect '/login'
     end
   end
@@ -291,11 +227,11 @@ class Application < Sinatra::Base
       if post.save
         redirect '/admin'
       else
-        alert_alert
+        alert
         redirect '/posts/new'
       end
     else
-      alert_error
+      error
       redirect '/login'
     end
   end
@@ -306,7 +242,7 @@ class Application < Sinatra::Base
       @category = Category.joins(:posts).find_by(posts: { id: params[:id] })
       erb :'posts/edit'
     else
-      alert_error
+      error
       redirect '/login'
     end 
   end
@@ -321,13 +257,14 @@ class Application < Sinatra::Base
       post.body = params[:body]
       category.update(name: params[:category])
       if post.save
+      	notice
         redirect '/admin'
       else
-        alert_alert
+        alert
         redirect '/posts/new'
       end
     else
-      alert_error
+      error
       redirect '/login'
     end
   end
@@ -342,7 +279,7 @@ class Application < Sinatra::Base
         redirect '/404'
       end
     else
-      alert_error
+      error
       redirect '/login'
     end
   end
@@ -357,7 +294,7 @@ class Application < Sinatra::Base
         redirect '/404'
       end
     else
-      alert_error
+      error
       redirect '/login'
     end
   end
@@ -377,5 +314,6 @@ class Application < Sinatra::Base
       redirect '/404'
     end
   end
-  ####
+
+
 end
