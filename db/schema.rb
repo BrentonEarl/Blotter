@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140603022111) do
+ActiveRecord::Schema.define(version: 20140609183135) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -26,22 +26,18 @@ ActiveRecord::Schema.define(version: 20140603022111) do
     t.datetime "updated_at"
   end
 
-  create_table "posts", force: true do |t|
+  create_table "pages", force: true do |t|
     t.string   "title"
-    t.string   "author"
-    t.text     "summary"
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "site_settings", force: true do |t|
-    t.string   "name"
-    t.string   "tagline"
+  create_table "posts", force: true do |t|
+    t.string   "title"
     t.string   "author"
-    t.text     "meta_description"
-    t.text     "meta_keywords"
-    t.text     "about_site"
+    t.text     "summary"
+    t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

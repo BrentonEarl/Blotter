@@ -65,18 +65,14 @@ else
   print "\n\n"
 end
 
-if SiteSettings.count == 0
-  print "Seed:  Create default site settings"
+if Pages.count == 0
+  print "Seed:  Create About Page"
   print "\n\n"
 
-  SiteSettings.create(
-  name: "Exit Status One",
-  tagline: "Possesion of anything begins in the mind...",
-  author: "Brenton Earl",
-  meta_description: "A compilation on information about music, Linux, Ruby programming and interesting news.",
-  meta_keywords: "Linux, Ruby, Sinatra, Rails, SQL, HTML, CSS, Music, Punk, Rock, Indie",
-  about_site: "This site was developed by Brenton Earl.  It uses the Sinatra DSL, which is written in the Ruby programming language."
+  Pages.create(
+  title: "About Us",
+  body: "This site was developed by Brenton Earl.  It uses the Sinatra DSL, which is written in the Ruby programming language."
   )
-  print " Created Default Site Settings"
+  print " Created First Page"
   print "\n\n"
 end

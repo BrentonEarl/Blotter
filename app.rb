@@ -16,13 +16,14 @@ class Application < Sinatra::Base
 
   use Rack::Protection
   use Rack::Flash, :sweep => true 
-
   helpers Sinatra::Cookies
   enable :sessions
+
   helpers SiteAuthentication
   helpers FlashAlerts
   helpers Installation
   helpers CommonQueries
+  helpers SiteInformation
 
 
   #### 404 and 500
@@ -36,6 +37,8 @@ class Application < Sinatra::Base
 
   #### Installation 
   get '/install' do
+  	information
+  	@title = "Site Installation"
     user = User.first()
     if user == nil
       erb :'install/new'
@@ -56,7 +59,8 @@ class Application < Sinatra::Base
 
   #### Root
   get '/' do
-    information
+  	information
+		@title = "Index"
     @post = Posts.order("created_at DESC").limit(6)
     erb :index
   end
@@ -65,6 +69,7 @@ class Application < Sinatra::Base
   #### Contact Us
   get '/contact' do
     information
+    @title = "Contact Us"
     erb :contact
   end
 
@@ -90,10 +95,98 @@ class Application < Sinatra::Base
   end
 
 
-  #### About Us
-  get '/about' do
+  #### Archives page
+  get '/archives' do
     information
-    erb :'about/view'
+    @title = "Site Archives"
+    posts = Posts.all
+    @post_months = posts.group_by { |m| m.created_at.beginning_of_month }
+    erb :archives
+  end
+
+
+  #### Categories Page
+  get '/category/:category' do  ### Add Route error handling
+    information
+    begin
+      @category = Category.find_by(name: params[:category])
+      @categories = Category.where(name: params[:category])
+      @title = "Category: " + @category.name
+      erb :categories
+    rescue
+      flash[:error] = "That category does not exist."
+      redirect '/404'
+    end
+  end 
+
+
+  #### Login
+  get '/login' do
+  	information
+    @title = "Log In"
+    erb :'sessions/login'
+  end
+
+  post '/session/create' do # Create Session
+    authenticate
+  end
+
+  #### Destroy Login Session
+  get '/logout' do
+    sign_out
+    flash[:notice] = "You are signed out."
+    redirect '/'
+  end
+
+#  #### Admin Panel
+#  get '/admin/settings' do
+#    if signed_in?
+#     	information
+#	    @title = "Site Settings"
+#      erb :'admin/settings'
+#    else
+#      error
+#      redirect '/login'
+#    end
+#  end
+
+#  post '/admin/settings/save' do
+#    if signed_in?
+#      data = SiteSettings.find_by(id: "1")
+#      data.name = params[:name]
+#      data.tagline = params[:tagline]
+#      data.author = params[:author]
+#      data.meta_description = params[:description]
+#      data.meta_keywords = params[:keywords]
+#      if data.save
+#        notice
+#        redirect '/admin' 
+#      else
+#        error
+#        redirect '/login'
+#      end
+#    else
+#      error
+#      redirect '/login'
+#    end
+#  end
+
+  get '/admin' do
+    if signed_in?
+    	information
+    	@title = "Administration"
+      @post = Posts.order("created_at DESC")
+      erb :'admin/index'
+    else
+      redirect '/login'
+    end
+  end
+
+
+	#### Dynamic Pages
+  get '/pages' do
+  	@title = "Site Pages"
+    erb :'pages/view'
   end
  
 	get '/about/edit' do
@@ -123,90 +216,15 @@ class Application < Sinatra::Base
     end
   end
 
-
-  #### Archives page
-  get '/archives' do
-    posts = Posts.all
-    @post_months = posts.group_by { |m| m.created_at.beginning_of_month }
-    erb :archives
-  end
-
-
-  #### Categories Page
-  get '/category/:category' do  ### Add Route error handling
-    begin
-      @category = Category.find_by(name: params[:category])
-      @categories = Category.where(name: params[:category])
-      erb :categories
-    rescue
-      flash[:error] = "That category does not exist."
-      redirect '/404'
-    end
-  end 
-
-
-  #### Login
-  get '/login' do
-    erb :'sessions/login'
-  end
-
-  post '/session/create' do # Create Session
-    authenticate
-  end
-
-  #### Destroy Login Session
-  get '/logout' do
-    sign_out
-    flash[:notice] = "You are signed out."
-    redirect '/'
-  end
-
-
-  #### Admin Panel
-  get '/admin/settings' do
-    if signed_in?
-      erb :'admin/settings'
-    else
-      error
-      redirect '/login'
-    end
-  end
-
-  post '/admin/settings/save' do
-    if signed_in?
-      data = SiteSettings.find_by(id: "1")
-      data.name = params[:name]
-      data.tagline = params[:tagline]
-      data.author = params[:author]
-      data.meta_description = params[:description]
-      data.meta_keywords = params[:keywords]
-      if data.save
-        notice
-        redirect '/admin' 
-      else
-        error
-        redirect '/login'
-      end
-    else
-      error
-      redirect '/login'
-    end
-  end
-
-  get '/admin' do
-    if signed_in?
-      @post = Posts.order("created_at DESC")
-      erb :'admin/index'
-    else
-      redirect '/login'
-    end
-  end
-
-
+	
+	
+	
   #### Posts
   get '/posts/new' do
     if signed_in?
-    erb :'posts/new'
+	   	information
+	   	@title = "New Post"
+	    erb :'posts/new'
     else
       error
       redirect '/login'
@@ -239,6 +257,8 @@ class Application < Sinatra::Base
   get '/posts/:id/edit' do ## Consider better route error handling
     if signed_in?
     	begin
+    	  information
+	    	@title = "Edit Post"
 	      find_post_by_id
   	    find_category_by_post_id
   	    erb :'posts/edit'
@@ -282,6 +302,8 @@ class Application < Sinatra::Base
   get '/posts/:id/delete' do
     if signed_in?
       begin
+     	  information
+	    	@title = "Delete Post"
         find_post_by_id
         erb :'posts/delete'
 			rescue
@@ -318,6 +340,7 @@ class Application < Sinatra::Base
 		begin
       find_post_by_id 
       find_category_by_post_id 
+      @title = @post.title
       erb :'posts/view'
 		rescue
       status 404

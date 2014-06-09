@@ -1,8 +1,10 @@
 <aritcle>
-<h2>About Us</h2>
-<form action="/about/edit" method="post" class="form">
-<label for="about_site">Edit page</label><br />
-<textarea type="text" name="about_site" ><%= information.about_site %></textarea><br /><br />
+<h2><%= @title %></h2>
+<form action="" method="post" class="form">
+<label for="page_body">Title:</label><br />
+<input type="text" name="title" value="<%= @pages.title %>"><br /><br />
+<label for="page_body">Body:</label><br />
+<textarea type="text" name="body" ><%= @pages.body %></textarea><br /><br />
 <input id="post_submit" name="commit" type="submit" value="Save" />
 </form><br />
 </aritcle>
