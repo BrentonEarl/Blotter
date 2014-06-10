@@ -3,7 +3,8 @@
   <% @post.each do |post| %>
     <p>
       <%= post.created_at %> &raquo; <a href="/posts/<%= post.id %>"><%= post.title %></a><br />
-      <%= post.summary %>
+      <%= post.body[0..100] %>...<br />
+      <a href="/posts/<%= post.id %>">Continue reading</a>
     </p>
     <br />
   <% end %>

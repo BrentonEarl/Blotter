@@ -7,9 +7,9 @@
 <label for="category">Category</label><br />
 <input type="text" name="category" value="<%= @category.name %>"><br /><br />
 <label for="summary">Summary:</label><br />
-<textarea type="text" name="summary" ><%= @post.summary %></textarea><br /><br />
+<textarea type="text" name="summary" data-rte="{toolbar: 'basic'}"><%= @post.summary %></textarea><br /><br />
 <label for="body">Body:</label><br />
-<textarea type="text" name="body" ><%= @post.body %></textarea><br /><br />
+<textarea type="text" name="body" data-rte="{toolbar: 'basic'}"><%= @post.body %></textarea><br /><br />
 <input id="post_submit" name="save" type="submit" value="Save" />
 </form>
 <br />

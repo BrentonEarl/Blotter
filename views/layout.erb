@@ -15,7 +15,6 @@
   <!--[if lt IE 9]>
   <script src="dist/html5shiv.js"></script>
   <![endif]-->
-  <script src="/javascripts/RightJS/right.js"></script>
 </head>
 <body>
   <header>
@@ -52,10 +51,8 @@
     <p><p>&copy; <a href="<%= @site_url %>"><%= @site_name %></a> | Powered by <a href="http://www.sinatrarb.com/">Sinatra</a> | <a href="/login">Sign In</a></p>
     <% end %>
   </footer>
-  	<script type="text/javascript">
-   $(document).ready(function () {
-      $('head').append('<link href="/chrome.css" rel="stylesheet" />');
-   });
-	</script>
+  <script src="http://rightjs.org/hotlink/right.js"></script>
+	<script src="http://cdn.rightjs.org/ui/rte.js"></script>
+	<script src="/javascripts/app.js"></script>
 </body>
 </html>
