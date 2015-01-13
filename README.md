@@ -5,17 +5,17 @@ Blotter is a blogging software written in Ruby.  It was created to replace Wordp
 
 ### Installation
 
-*  Ruby 1.9.3 or greater
+*  Ruby 2.2.0r
 
 __Required Gems__
 
-*  sinatra 1.4.5
-*  sinatra-contrib 1.4.2
-*  activerecord 4.1.1
-*  mysql 2.9.1
-*  rack-flash3 1.0.5
-*  bcrypt-ruby 3.1.5
-*  pony 1.8
+*  sinatra
+*  sinatra-contrib
+*  activerecord
+*  pg (postgresql
+*  rack-flash3
+*  bcrypt-ruby
+*  pony
 
 __Deployment__
 
