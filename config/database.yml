@@ -11,10 +11,9 @@ test:
   timeout: 5000
 
 production:
-  adapter: mysql
-  database: blotter
-  username: root
-  password: toor
-  host: 127.0.0.1
-  port: 3306
+  adapter: postgresql
+  database: blotter_prod
+  username: username
+  password: password
+  pool: 5
   encoding: utf8

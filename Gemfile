@@ -1,24 +1,24 @@
 source 'https://rubygems.org'
 
-ruby '1.9.3'
+ruby '2.2.0'
 
 gem 'sinatra', '1.4.5'
 gem 'sinatra-contrib', '1.4.2'
-gem 'sinatra-activerecord', '2.0.2'
-gem 'activerecord', '4.1.1'
+gem 'sinatra-activerecord', '2.0.3'
+gem 'activerecord', '4.2.0'
 gem 'rack-flash3', '1.0.5'
 gem 'rack-protection', '1.5.3'
 gem 'bcrypt-ruby', '3.1.5'
-gem 'pony', '1.8'
+gem 'pony', '1.11'
 
 
 group :development, :test do
-  gem 'sqlite3', '1.3.9'
-  gem 'database_cleaner', '1.3.0'
-  gem 'cucumber', '1.3.15'
-  gem 'capybara', '2.3.0'
+  gem 'sqlite3', '1.3.10'
+  gem 'database_cleaner', '1.4.0'
+  gem 'cucumber', '1.3.18'
+  gem 'capybara', '2.4.4'
 end
 
 group :production do
-  gem 'mysql', '2.9.1'
+  gem 'pg', '0.18.1'
 end

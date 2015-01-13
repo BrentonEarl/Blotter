@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 require "sinatra"
 require "sinatra/activerecord"
 require "sinatra/cookies"
