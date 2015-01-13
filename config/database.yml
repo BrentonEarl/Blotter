@@ -12,8 +12,8 @@ test:
 
 production:
   adapter: postgresql
-  database: blotter_prod
-  username: username
+  database: blotter_production
+  username: facerip
   password: password
   pool: 5
   encoding: utf8

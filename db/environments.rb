@@ -10,11 +10,11 @@ end
 
 configure :production do
   ActiveRecord::Base.establish_connection(
-    :adapter  => 'mysql',
+    :adapter  => 'postgresql',
     :host     => '127.0.0.1',
-    :username => 'root',
-    :password => 'toor',
-    :database => 'blotter',
+    :username => 'facerip',
+    :password => 'password',
+    :database => 'blotter_production',
     :encoding => 'utf8'
     )
 end
