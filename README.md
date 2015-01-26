@@ -5,7 +5,7 @@ Blotter is a blogging software written in Ruby.  It was created to replace Wordp
 
 ### Installation
 
-*  Ruby 2.2.0r
+*  Ruby 2.2.0
 
 __Required Gems__
 
@@ -19,13 +19,13 @@ __Required Gems__
 
 __Deployment__
 
+*  Edit helpers/site_information_helper.rb to reflect your information
 *  Run Bundler:  bundle install
 *  Modify /config/database.yml and /db/environments.rb to reflect your database settings
 *  Execute rake db:create and rake db:migrate in the root directory
 *  Choose your web server, [Sinatra Recipes - Deployment](http://recipes.sinatrarb.com/p/deployment?#article).  Deployment has been tested using [Apache and Passenger](http://recipes.sinatrarb.com/p/deployment/apache_with_passenger?#article)
 *  Once the site is running, visit yourdomain.com/install 
 *  Create the administrative account at /install, anyone will be able to create a user, so do this immediately
-*  Site settings can be found at /admin/settings, update to reflect your blog's information
 
 ### Troubleshooting
 
