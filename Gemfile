@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.0'
+ruby '2.2.2'
 
 gem 'sinatra', '1.4.5'
 gem 'sinatra-contrib', '1.4.2'
@@ -13,10 +13,12 @@ gem 'pony', '1.11'
 
 
 group :development, :test do
-  gem 'sqlite3', '1.3.10'
-  gem 'database_cleaner', '1.4.0'
+  gem 'capybara', '2.4.4'  
   gem 'cucumber', '1.3.18'
-  gem 'capybara', '2.4.4'
+  gem 'database_cleaner', '1.4.0'
+  gem 'rake'
+  gem 'shotgun'
+  gem 'sqlite3', '1.3.10'
 end
 
 group :production do
