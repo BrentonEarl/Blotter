@@ -1,0 +1,12 @@
+/home/kb9agt/.rbenv/versions/2.2.2/bin/ruby -r ./siteconf20150811-7146-xnx0rt.rb extconf.rb
+checking for main() in -lc... yes
+creating Makefile
+
+make "DESTDIR=" clean
+
+make "DESTDIR="
+compiling gherkin_lexer_zh_tw.c
+linking shared-object gherkin_lexer_zh_tw.so
+
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 gherkin_lexer_zh_tw.so ./.gem.20150811-7146-d1ocdb
